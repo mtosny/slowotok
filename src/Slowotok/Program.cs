@@ -24,15 +24,17 @@ namespace Slowotok
                 .Select(word => new Word(word))
                 .Where(board.IsPossibleToCombineWord)
                 .Where(word => board.IsPossibleToSwipeWord(word))
-                // przy korzystaniu z wielu słowników mogą wystąpić powtórzenia, których warto się pozbyć
-                .Distinct()
-                .OrderByDescending(word => word.Value.Length)
                 .ToList();
-
-            wordsPossibleToSwap.Take(50).ToList().ForEach(word => Console.WriteLine(word.Value));
 
             var filePathName = string.Format("solutions_{0}.txt", boardCharacters);
             new SolutionsWriter().SaveToJson(board.Solutions, filePathName);
+
+            var wordsForConsole = wordsPossibleToSwap
+                .Select(word => word.Value)
+                .OrderByDescending(w => w.Length)
+                .Take(30)
+                .ToList();
+            wordsForConsole.ForEach(Console.WriteLine);
         }
     }
 }

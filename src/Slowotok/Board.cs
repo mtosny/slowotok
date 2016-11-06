@@ -186,7 +186,7 @@ namespace Slowotok
             if (charIndex == 0 && result)
             {
                 _solutionInvertedMoves.Reverse();
-                _solutions.Add(new Solution {Word = w, Moves = _solutionInvertedMoves});
+                AddSolution(w, _solutionInvertedMoves);
             }
 
             return result;
@@ -227,6 +227,17 @@ namespace Slowotok
                     yield return i;
                 }
             }
+        }
+
+        private void AddSolution(Word word, List<int> solutionMoves)
+        {
+            if (Solutions.Any(s => s.Word.Value == word.Value))
+            {
+                // Mamy już takie słowo jako rozwiązanie - możliwe przy wielu słownikach
+                return;
+            }
+
+            _solutions.Add(new Solution { Word = word, Moves = solutionMoves });
         }
     }
 }

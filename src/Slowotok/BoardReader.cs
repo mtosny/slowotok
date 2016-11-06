@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Slowotok
 {
@@ -13,6 +14,9 @@ namespace Slowotok
         /// <returns></returns>
         public string ReadBoard()
         {
+            // Rozwiązanie problemu konwersji polskich znaków (np. ś -> s)
+            Console.InputEncoding = Encoding.Unicode;
+            Console.OutputEncoding = Encoding.Unicode;
             Console.WriteLine("Podaj wszystkie litery występujące na planszy w jednym wierszu (wierszami od góry, od lewej do prawej):");
             string chars;
             do
